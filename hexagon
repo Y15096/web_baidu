@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			.box {
+				position: relative;
+				width: 200px;
+				height: 200px;
+				transform-style: preserve-3d;
+				transform: rotateX(-20deg) rotateY(0deg);
+				animation: myrotate 3s linear 0s infinite;
+			}
+			.box > div {
+				position: absolute;
+				top: 0;
+				width: 200px;
+				height: 200px;
+				font-size: 30px;
+				line-height: 200px;
+				text-align: center;
+				color: #ff0000;
+			}
+			.box > div:nth-child(1) {
+				transform: translateZ(100px);
+				background-color: #000;
+			}
+			.box > div:nth-child(2) {
+				transform: rotateY(-90deg) translateZ(100px);
+				background-color: #7D51FF;
+			}
+			.box > div:nth-child(3) {
+				transform: translateZ(-100px);
+				background-color: #FAE48C;
+			}
+			.box > div:nth-child(4) {
+				transform: rotateY(-90deg) translateZ(-100px);
+				background-color: #008000;
+			}
+			.box > div:nth-child(5) {
+				transform: rotateX(90deg) translateZ(100px);
+				background-color: #ADFF2F;
+			}
+			.box > div:nth-child(6) {
+				transform: rotateX(-90deg) translateZ(100px);
+				background-color: #7BBBD6;
+			}
+			@keyframes myrotate{
+				from{ transform: rotateX(-20deg) rotateY(0deg); }
+				to{ transform: rotateX(-20deg) rotateY(360deg); }
+			}
+		</style>
+	</head>
+	<body>
+		<div class="box">
+			<div>中间</div>
+			<div>左边</div>
+			<div>后边</div>
+			<div>右边</div>
+			<div>上面</div>
+			<div>下面</div>
+		</div>
+	</body>
+</html>
