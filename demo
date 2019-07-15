@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+<title>vue.js弹幕</title>
+
+
+<style>
+	* {
+		margin: 0;
+		padding: 0;
+	}
+	.vueBox {
+		position: relative;
+		background-color: #000;
+		margin: 0 auto;
+		max-width: 750px;
+		height: 100vh;
+		
+		overflow: hidden;
+	}
+	/* 弹幕样式 */
+	.tm-item {
+		position: absolute;
+		display: block;
+		box-sizing: border-box;
+		padding: 5px 10px;
+		left: 100%;
+		color: #fff;
+		background-color: red;
+		font-size: 14px;
+		height: 35px;
+		line-height: 25px;
+		border-radius: 35px;
+		width: auto;
+		white-space: nowrap;
+		display: flex;
+		align-items: center;
+	}
+	.tm-item > img {
+		width: 25px;
+		height: 25px;
+		border-radius: 50%;
+		margin-right: 5px;
+	}
+	.tm-move {
+		animation: amScroll 8s ease;
+	}
+	@keyframes amScroll{
+		from{
+			left: 100%;
+		}
+		to{
+			left: -100%;
+		}
+	}
+
+</style>
+
+</head>
+<body>
+
+<div class="vueBox">
+		<div v-for="(item,index) in tmList" :key="index" class="tm-item" :class="{'tm-move':item.active}" :style="{top: item.top+'px'}">
+			<img :src="item.imgSrc"></img>{{item.txt}}
+		</div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+<script type="text/javascript">
+    const vm = new Vue({
+        el: ".vueBox",
+        data: {
+            tmCurrent: 0,//判断第几条索引数据
+            tmList: [
+				{txt:"111",imgSrc:"http://placekitten.com/100/100"},
+				{txt:"222",imgSrc:"http://placekitten.com/120/120"},
+				{txt:"333",imgSrc:"http://placekitten.com/150/150"},
+				{txt:"444",imgSrc:"http://placekitten.com/200/200"},
+				{txt:"555",imgSrc:"http://placekitten.com/100/100"},
+				{txt:"666",imgSrc:"http://placekitten.com/120/120"},
+				{txt:"777",imgSrc:"http://placekitten.com/150/150"},
+				{txt:"888",imgSrc:"http://placekitten.com/200/200"},
+			],
+        },
+        created: function () {
+			// 弹幕
+			setInterval(()=>{
+				console.log("ok");
+				this.tmHandle();
+			},1000)
+        },
+        methods: {
+			tmHandle(){
+				let tmList = this.tmList;
+				let index = this.tmCurrent;
+				
+				console.log(index);
+				console.log(this.tmList[index]);
+				//判断是不是每4条经过
+				let num = index%4;
+				
+				
+				this.$set(this.tmList[index],"top",(10 + (num * 50)));
+				this.$set(this.tmList[index],"active",true);
+				
+				this.tmCurrent+=1;
+				setTimeout(()=>{
+					this.$set(this.tmList[index],"active",false);
+					this.tmList.push(tmList[index]);
+				},7800)
+			},
+        }
+    });
+</script>
+
+</div>
+</body>
+</html>
